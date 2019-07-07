@@ -6,11 +6,30 @@ const mime = require('mime-types')
 
 const routes = {
   video: '/video',
+  subtitle: '/subtitle',
 }
 
 const render404 = (req, res) => {
   res.writeHead(404, { 'Content-Type': 'text/plain' })
   res.write('Not Found!!')
+  res.end()
+}
+
+const renderSubtitle = (req, res, baseFolder) => {
+  const pathName = decodeURIComponent(url.parse(req.url, true).pathname)
+  const pathFile = pathName.substring(routes.subtitle.length)
+  const filePath = path.join(baseFolder, pathFile)
+
+  if (!fs.existsSync(filePath)) {
+    render404(req, es)
+    return
+  }
+
+  const fileSubtitle = fs.readFileSync(filePath)
+  const contentType = mime.lookup(filePath)
+
+  res.writeHead(200, { 'Content-Type': contentType })
+  res.write(fileSubtitle)
   res.end()
 }
 
@@ -90,6 +109,9 @@ module.exports = (baseFolder, baseUrl, basePort) => {
     switch (firstPart) {
       case routes.video:
         renderVideo(req, res, baseFolder)
+        break
+      case routes.subtitle:
+        renderSubtitle(req, res, baseFolder)
         break
       default:
         render404(req, res)
