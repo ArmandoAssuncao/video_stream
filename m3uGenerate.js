@@ -19,7 +19,8 @@ module.exports = async (folder, baseHost) => {
     const url = `${baseHost}/${f}`
     const filePaths = f.split('/')
     const grouTitle = filePaths.length > 1 ? filePaths[0] : 'Movies'
-    const name = path.basename(f).slice(0, -(path.extname(f).length))
+    let name = path.basename(f).slice(0, -(path.extname(f).length))
+    name = name.replace(/(\.|_)/g, ' ')
 
     return {
       url: url,
