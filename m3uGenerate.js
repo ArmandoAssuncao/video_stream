@@ -16,7 +16,7 @@ module.exports = async (folder, baseHost) => {
   const files = await filterAsync(_files, (f) => pathValid(path.join(folder, f)))
 
   const tracks = files.map((f) => {
-    const url = `${baseHost}/${f}`
+    const url = `${baseHost}/${encodeURIComponent(f)}`
     const filePaths = f.split('/')
     const grouTitle = filePaths.length > 1 ? filePaths[0] : 'Movies'
     let name = path.basename(f).slice(0, -(path.extname(f).length))
