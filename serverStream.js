@@ -51,12 +51,12 @@ const renderVideo = (req, res, baseFolder) => {
     )
     stream.pipe(res)
 
-    stream.on('error', function(err){
+    stream.on('error', function(err) {
       console.error(err)
     })
 
     // Close at end of stream.
-    stream.on('end', function(){
+    stream.on('end', function() {
       stream.close()
     })
   } else {
@@ -71,12 +71,12 @@ const renderVideo = (req, res, baseFolder) => {
     const stream = fs.createReadStream(filePath)
     stream.pipe(res)
 
-    stream.on('error', function(err){
+    stream.on('error', function(err) {
       console.error(err)
     })
 
     // Close at end of stream.
-    stream.on('end', function(){
+    stream.on('end', function() {
       stream.close()
     })
   }
@@ -86,6 +86,7 @@ module.exports = (baseFolder, baseUrl, basePort) => {
   return http.createServer(function (req, res) {
     const pathName = decodeURIComponent(url.parse(req.url, true).pathname)
     const firstPart = '/' + pathName.split('/')[1]
+    console.log('Current: ', pathName, firstPart, req.url)
 
     switch (firstPart) {
       case routes.video:
