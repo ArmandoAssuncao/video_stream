@@ -2,7 +2,7 @@
   "dependencies": {
     "form-data": "2.5.0",
     "mime-types": "2.1.24",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "node-watch": "0.6.2"
   }
 }
